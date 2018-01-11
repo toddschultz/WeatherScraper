@@ -1,5 +1,7 @@
-%% Grab NOAA weather data
-% Request and retrieve weather data from the NOAA webservice. 
+% NOAA Weather data
+% NCDC = 
+
+
 
 % API documentation page
 % https://www.ncdc.noaa.gov/cdo-web/webservices/v2
@@ -19,13 +21,24 @@
 
 % Endpoints
 
-%% Load token
-token = readtable('token.txt');
-opt = weboptions('KeyName','token','KeyValue',token.token{1});
 
-% find all locations
+%% NOAA token
+funname = mfilename('fullpath');
+[funpath,funname] = fileparts(funname);
+
+tokenfname = "NOAAtoken.txt";
+token = readtable(fullfile(funpath,tokenfname),'TextType','string');
+
+opt = weboptions('KeyName','token','KeyValue',token.token);
+
+
+%% find all locations
 findLocsURL = 'https://www.ncdc.noaa.gov/cdo-web/api/v2/locations';
 
 
+
+
 url = 'http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=ZIP:28801&startdate=2010-05-01&enddate=2010-05-01';
+
 data = webread(url,opt);
+
