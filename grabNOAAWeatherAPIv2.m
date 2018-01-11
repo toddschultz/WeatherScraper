@@ -3,7 +3,7 @@
 
 
 
-% API documentation page
+% APIv2 documentation page
 % https://www.ncdc.noaa.gov/cdo-web/webservices/v2
 %   NCDC's Climate Data Online (CDO) offers web services that provide 
 %   access to current data. This API is for developers looking to create 
@@ -21,24 +21,22 @@
 
 % Endpoints
 
+coopID = 457473; % KSEA
+% coopID = 305811; % KLGA
 
 %% NOAA token
 funname = mfilename('fullpath');
 [funpath,funname] = fileparts(funname);
 
-tokenfname = "NOAAtoken.txt";
+tokenfname = 'NOAAtoken.txt';
 token = readtable(fullfile(funpath,tokenfname),'TextType','string');
 
-opt = weboptions('KeyName','token','KeyValue',token.token);
+opt = weboptions('KeyName','token','KeyValue',token.token,'Timeout',120);
 
+%% Find station information
+findStationURL = ['https://www.ncdc.noaa.gov/cdo-web/api/v2/stations/COOP:' num2str(coopID)];
+station = webread(findStationURL,opt);
 
-%% find all locations
-findLocsURL = 'https://www.ncdc.noaa.gov/cdo-web/api/v2/locations';
-
-
-
-
-url = 'http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=ZIP:28801&startdate=2010-05-01&enddate=2010-05-01';
-
-data = webread(url,opt);
-
+%% Query available weather datasets
+findWeatherURL = 'https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets/';
+weather = webread(findWeatherURL,'stationid',['COOP:' num2str(coopID)],opt);
