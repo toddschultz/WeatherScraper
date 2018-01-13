@@ -17,3 +17,4 @@ SEAstation = webread(findSEAStationURL,opt);
 
 url = 'http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=ZIP:28801&startdate=2010-05-01&enddate=2010-05-01';
 data = webread(url,opt);
+
