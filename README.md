@@ -38,4 +38,4 @@ A bug was discovered in the libraries MATLAB was using for connecting to
 RESTful API in versions R2016a through R2017b when using a Proxy server. The 
 issue has been fixed in MATLAB R2018a. The functions also use the time table 
 feature in MATLAB, which was introduced in R2016a. Thus, the funcitons provide 
-require MATLAB R2018a or newer to work properly on the Boeing network. 
+require MATLAB R2018a or newer to work properly on a network with a Proxy server. 
