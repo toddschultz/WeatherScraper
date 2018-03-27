@@ -12,22 +12,20 @@ function weathertable = GrabWeatherData(weatherlocation,begindate,enddate)
 %   R2013b, the datetime data type available beginning in MATLAB R2014b and
 %   time tables available beginning in MATLAB R2016b. 
 %
-% See also datetime, timetable, datestr
+% See also DATETIME, TIMETABLE, DATESTR
 % 
 % Syntax
 % weathertable = GrabWeatherData(weatherlocation,begindate,enddate)
 % 
 % Inputs
 % weatherlocation = four letter string for location's ICAO code, e.g. 'KBFI'
-% begindate = begining date of range of interest in datestr format, e.g.
-%             '3/14/2013'
-% enddate = end date of range of interest in datestr format, e.g.
-%             '3/21/2013'
+% begindate = begining date of range of interest in datestr format, e.g. '01-Jan-2016'
+% enddate = end date of range of interest in datestr format, e.g. '26-Jan-2017'
 %
 % Outputs
 % weathertable = time table of weather data
 
-% Copyright 2009 - 2011 MathWorks, Inc.
+% Copyright 2009 - 2011
 % Written by Richard Willey
 % Copyright 2014-2016
 % Written by Todd Schultz
@@ -59,10 +57,9 @@ wcell = cell(dt+1,1);
 
 parfor idate = 0:dt
     try
-        dateloop = begindate + idate*duration(24,0,0);
-        wcell{idate+1} = ScrapeDailyWeather(dateloop,weatherlocation);
+        wcell{idate+1} = ScrapeDailyWeather(begindate + idate*duration(24,0,0),weatherlocation);
     catch
-        disp(['Error gathering or joining data from url at ' char(dateloop)])
+        disp(['Error gathering or joining data from url at ' char(begindate + idate*duration(24,0,0))])
     end
 end
 weathertable = vertcat(wcell{:});
